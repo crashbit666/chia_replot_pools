@@ -2,7 +2,7 @@
 
 Programa para replotear Chia sin tener que borrar ficheros uno a uno
 
-Este programa lo que hace es comprueba las rutas donde se guardan los plots de chia, comprueba 
+Este programa comprueba las rutas donde se guardan los plots de chia, comprueba 
 si existe suficiente espacio en el disco y de ser así, crea un nuevo plot adaptado a las pools.
 
 Si no existe suficiente espacio, elimina un plot y luego crea el nuevo para las pools
