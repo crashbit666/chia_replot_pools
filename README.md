@@ -25,8 +25,10 @@ Este comando comprueba si existe espacio en el directorio /media/disco1 para cre
 De no ser así, elimina un plot viejo, vuelve a comprobar el espacio libre y si puede, crea un plot nuevo
 
 ## Estado del programa y notas importantes
-Actualmente la opción **-n** todavía no está activa
-Tampoco está activa la creación de plots nuevos
+Opción **-n** : Testing
+
+Create new plots: None implemented
+
 Los plots nuevos se guardarán en la carpeta new_plots.
 Hasta el momento no detecta si el plot es nuevo o viejo, simplemente borra los que hay en la carpeta raíz
 El tamaño está puesto a 1TB, para las pruebas. Bajar a 102GB para producción.
