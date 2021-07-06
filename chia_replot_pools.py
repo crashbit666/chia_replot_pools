@@ -85,16 +85,22 @@ def check_new_plots_folder(folder):
 def main():
     args = arguments()
     spaces = check_directories_space(args.directory)
+    if args.number is not None:
+        number_of_new_plots = args.number
+    else:
+        number_of_new_plots = 1
+    iterations = 0
 
     for i in range(len(spaces)):
         old_plots_exist = True
-        while old_plots_exist:
+        while old_plots_exist or iterations <= number_of_new_plots:
             check_new_plots_folder(spaces[i]["folder"])
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
             if spaces[i]["free_space"] > 1000:
                 create_new_plots()
             else:
                 remove_old_plots(spaces[i]["folder"])
+            iterations += 1
 
 
 if __name__ == '__main__':
