@@ -34,10 +34,10 @@ def check_directories_space(directories):
 
 
 def remove_old_plots(folder):
-    print("Remove old plot")
-    last_plot = max(os.listdir(folder))
-    if os.path.isdir(last_plot):
-        os.system("rm {}{}".format(folder, last_plot))
+    last_plot = folder + max(os.listdir(folder))
+    if not os.path.isdir(last_plot):
+        print("Remove old plot {}".format(last_plot))
+        os.system("rm {}".format(last_plot))
 
 
 def create_new_plots():
@@ -59,6 +59,7 @@ def check_if_old_plots_exist(folder):
 def check_new_plots_folder(folder):
     content = os.listdir(folder)
     if "new_plots" not in content:
+        print("Create {}/new_plots folder".format(folder))
         os.makedirs(folder+"/new_plots")
 
 
