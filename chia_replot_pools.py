@@ -39,11 +39,17 @@ def check_directories_space(directories):
 
 def remove_old_plots(folder):
     # Elimina los plots viejos, check los ficheros que no sean un directorio
+    # Pendiente testear que pasa si la carpeta es la primera opción devuelta en last_plot, ya que podría no eliminarlos
+    # La parte de que pasa si detecta una carpeta está solventada con os.walk, pero esta parte debe testearse mas
+    # ya que el capturo una excepción OutofIndex para que no salte el programa y luego hago un pass (no es muy limpio)
 
-    last_plot = folder + max(os.listdir(folder))
-    if not os.path.isdir(last_plot):
+    folder_walk = os.walk(folder)
+    try:
+        last_plot = folder + next(folder_walk)[2][0]
         print("Remove old plot {}".format(last_plot))
         os.remove(last_plot)
+    except IndexError:
+        pass
 
 
 def create_new_plots():
