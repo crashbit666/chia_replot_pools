@@ -37,7 +37,7 @@ def remove_old_plots(folder):
     last_plot = folder + max(os.listdir(folder))
     if not os.path.isdir(last_plot):
         print("Remove old plot {}".format(last_plot))
-        os.system("rm {}".format(last_plot))
+        os.remove(last_plot)
 
 
 def create_new_plots():
@@ -52,7 +52,7 @@ def check_if_old_plots_exist(folder):
     elif plots != "":
         return True
     else:
-        check_new_plots_folder()
+        check_new_plots_folder(folder)
         return True
 
 
