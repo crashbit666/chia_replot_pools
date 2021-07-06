@@ -4,6 +4,8 @@ import os
 
 
 def arguments():
+    # Esta función busca los argumentos pasados al programa y los devuelve
+
     parser = argparse.ArgumentParser(description="Elimina uno a una plots viejos y pone los nuevos")
     parser.version = "1.0"
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
@@ -15,6 +17,8 @@ def arguments():
 
 
 def check_directories_space(directories):
+    # Calcula el tamaño del disco, la parte usada y la parte libre, para saber si puede crear un plot o debe eliminarlo
+
     folders_base = {
         "folder": "",
         "total_space": 0,
@@ -34,6 +38,8 @@ def check_directories_space(directories):
 
 
 def remove_old_plots(folder):
+    # Elimina los plots viejos, check los ficheros que no sean un directorio
+
     last_plot = folder + max(os.listdir(folder))
     if not os.path.isdir(last_plot):
         print("Remove old plot {}".format(last_plot))
@@ -41,11 +47,15 @@ def remove_old_plots(folder):
 
 
 def create_new_plots():
+    # Pendiente . . . Aquí se crearán los nuevos plots
+
     print("Create new plots")
     os.system("")
 
 
 def check_if_old_plots_exist(folder):
+    # Mira si en las carpetas pasadas existen plots. En caso contrario, hace salir del bucle while en main
+
     plots = os.listdir(folder)
     if "new_plots" in plots and len(plots) == 1:
         return False
@@ -57,6 +67,9 @@ def check_if_old_plots_exist(folder):
 
 
 def check_new_plots_folder(folder):
+    # Los plots nuevos, en principio los pondrá en la carpeta new_plots. Si no existe, la crea
+    # Mas adelante está previsto que detecte los nuevos/viejos y esto quedara obsoleto
+
     content = os.listdir(folder)
     if "new_plots" not in content:
         print("Create {}/new_plots folder".format(folder))
