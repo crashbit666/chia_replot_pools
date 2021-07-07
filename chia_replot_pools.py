@@ -1,19 +1,26 @@
 import argparse
 import shutil
 import os
+import subprocess
 
 
 def arguments():
     # Esta función busca los argumentos pasados al programa y los devuelve
 
     parser = argparse.ArgumentParser(description="Elimina uno a una plots viejos y pone los nuevos")
-    parser.version = "1.0"
+    parser.version = "0.9.9"
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
                         help="Directorios donde borrar y añadir nuevos plots")
     parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
-    parser.add_argument("-s", "--ptd", type=str, action="store", help="Directorio donde se crear los plots temporales")
-    parser.add_argument("-f", "--final_dir", type=str, action="store", help="Directorio final de los plots")
-    parser.add_argument("-p", "--pool_key", type=str, action="store", help="Contrato para la pool")
+    parser.add_argument("-nptd", "--new_plots_temp_dir", type=str, action="store",
+                        help="Directorio donde se crean los plots temporales")
+    parser.add_argument("-pk", "--pool_public_key", type=str, action="store", help="Pool public key")
+    parser.add_argument("-fk", "--farmer_public_key", type=str, action="store", help="Farmer public key")
+    parser.add_argument("-npfd", "--new_plots_final_dir", type=str, action="store",
+                        help="Directorio final de los plots")
+    parser.add_argument("-nppk", "--new_plots_pool_key", type=str, action="store",
+                        help="Dirección del contrato inteligente para la pool")
+    parser.add_argument("-mmr", "--madmax_route", type=str, action="store", help="Ruta del ploteador madmax")
     parser.add_argument("-v", "--version", action="version", help="Muestra la versión")
     args = parser.parse_args()
     return args
@@ -33,9 +40,9 @@ def check_directories_space(directories):
     for ruta in directories:
         folders = folders_base.copy()
         folders["folder"] = folders_base["folder"] = ruta
-        folders["total_space"] = folders_base["total_space"] = shutil.disk_usage(ruta).total // 2**30
-        folders["used_space"] = folders_base["used_space"] = shutil.disk_usage(ruta).used // 2**30
-        folders["free_space"] = folders_base["free_space"] = shutil.disk_usage(ruta).free // 2**30
+        folders["total_space"] = folders_base["total_space"] = shutil.disk_usage(ruta).total // 2 ** 30
+        folders["used_space"] = folders_base["used_space"] = shutil.disk_usage(ruta).used // 2 ** 30
+        folders["free_space"] = folders_base["free_space"] = shutil.disk_usage(ruta).free // 2 ** 30
         all_folders.append(folders)
     return all_folders
 
@@ -44,7 +51,7 @@ def remove_old_plots(folder):
     # Elimina los plots viejos, check los ficheros que no sean un directorio
     # Pendiente testear que pasa si la carpeta es la primera opción devuelta en last_plot, ya que podría no eliminarlos
     # La parte de que pasa si detecta una carpeta está solventada con os.walk, pero esta parte debe testearse mas
-    # ya que el capturo una excepción Out of Index para que no salte el programa y luego hago un pass (no es muy limpio)
+    # ya que capturo una excepción Out of Index para que no salte el programa y luego hago un pass (no es muy limpio)
 
     folder_walk = os.walk(folder)
     try:
@@ -55,11 +62,19 @@ def remove_old_plots(folder):
         pass
 
 
-def create_new_plots():
+def create_new_plots(args, folder):
     # Pendiente . . . Aquí se crearán los nuevos plots
 
     print("Create new plots")
-    os.system("")
+    pool_public_key = args.pool_public_key
+    farmer_public_key = args.farmer_public_key
+    new_plots_temp_directory = args.new_plots_temp_dir
+    new_plots_final_directory = folder + "new_plots/"
+    # new_plots_pool_contract = args.new_plots_pool_key
+    madmax_route = args.madmax_route + "build/chia_plot"
+    command_to_execute = madmax_route + " -p " + pool_public_key + " -f " + farmer_public_key + " -t " + new_plots_temp_directory + " -d " + new_plots_final_directory
+
+    subprocess.run(command_to_execute, shell=True)
 
 
 def check_if_old_plots_exist(folder):
@@ -82,7 +97,7 @@ def check_new_plots_folder(folder):
     content = os.listdir(folder)
     if "new_plots" not in content:
         print("Create {}/new_plots folder".format(folder))
-        os.makedirs(folder+"/new_plots")
+        os.makedirs(folder + "/new_plots")
 
 
 def main():
@@ -99,8 +114,8 @@ def main():
         while old_plots_exist or iterations <= number_of_new_plots:
             check_new_plots_folder(spaces[i]["folder"])
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
-            if spaces[i]["free_space"] > 1000:
-                create_new_plots()
+            if spaces[i]["free_space"] > 102:
+                create_new_plots(args, spaces[i]["folder"])
             else:
                 remove_old_plots(spaces[i]["folder"])
             iterations += 1
