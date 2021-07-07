@@ -11,6 +11,9 @@ def arguments():
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
                         help="Directorios donde borrar y añadir nuevos plots")
     parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
+    parser.add_argument("-s", "--ptd", type=str, action="store", help="Directorio donde se crear los plots temporales")
+    parser.add_argument("-f", "--final_dir", type=str, action="store", help="Directorio final de los plots")
+    parser.add_argument("-p", "--pool_key", type=str, action="store", help="Contrato para la pool")
     parser.add_argument("-v", "--version", action="version", help="Muestra la versión")
     args = parser.parse_args()
     return args
