@@ -33,5 +33,9 @@ Los plots nuevos se guardarán en la carpeta new_plots.
 Hasta el momento no detecta si el plot es nuevo o viejo, simplemente borra los que hay en la carpeta raíz
 El tamaño está puesto a 1TB, para las pruebas. Bajar a 102GB para producción.
 
+## License:
+Este programa está registrado bajo la licencia GPLv3.
+Copyright 2021
+
 ## Contribución:
 xch1l0nm3fukzvgqakauks7tl4rwr9kdwqyl4aaw4cnhapj9ex5jngls49dsj6
