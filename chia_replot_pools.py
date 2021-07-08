@@ -1,5 +1,4 @@
 import argparse
-import shlex
 import shutil
 import os
 import subprocess
