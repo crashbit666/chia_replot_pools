@@ -1,7 +1,9 @@
 import argparse
+import shlex
 import shutil
 import os
 import subprocess
+from shlex import quote as shlex_quote
 
 
 def arguments():
@@ -72,9 +74,10 @@ def create_new_plots(args, folder):
     new_plots_final_directory = folder + "new_plots/"
     # new_plots_pool_contract = args.new_plots_pool_key
     madmax_route = args.madmax_route + "build/chia_plot"
-    command_to_execute = madmax_route + " -p " + pool_public_key + " -f " + farmer_public_key + " -t " + new_plots_temp_directory + " -d " + new_plots_final_directory
+    command_to_execute = madmax_route + (" -p " + pool_public_key + " -f " + farmer_public_key + " -t "
+                                         + new_plots_temp_directory + " -d " + new_plots_final_directory)
 
-    subprocess.run(command_to_execute, shell=True)
+    shlex_quote(subprocess.run(command_to_execute, shell=True))
 
 
 def check_if_old_plots_exist(folder):
