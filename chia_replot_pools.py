@@ -12,7 +12,7 @@ def arguments():
     parser.version = "0.9.9"
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
                         help="Directorios donde borrar y añadir nuevos plots")
-    parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
+    # parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
     parser.add_argument("-nptd", "--new_plots_temp_dir", type=str, action="store",
                         help="Directorio donde se crean los plots temporales")
     parser.add_argument("-pk", "--pool_public_key", type=str, action="store", help="Pool public key")
@@ -105,20 +105,16 @@ def check_new_plots_folder(folder):
 def main():
     args = arguments()
     spaces = check_directories_space(args.directory)
-    if args.number is not None:
-        number_of_new_plots = args.number
-    else:
-        number_of_new_plots = 1
-    iterations = 0
 
     for i in range(len(spaces)):
         old_plots_exist = True
-        while old_plots_exist or iterations <= number_of_new_plots:
-            check_new_plots_folder(spaces[i]["folder"])
+
+        check_new_plots_folder(spaces[i]["folder"])
+
+        while old_plots_exist:
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
             if spaces[i]["free_space"] > 102:
                 create_new_plots(args, spaces[i]["folder"])
-                iterations += 1
             else:
                 remove_old_plots(spaces[i]["folder"])
 
