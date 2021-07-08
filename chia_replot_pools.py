@@ -118,9 +118,9 @@ def main():
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
             if spaces[i]["free_space"] > 102:
                 create_new_plots(args, spaces[i]["folder"])
+                iterations += 1
             else:
                 remove_old_plots(spaces[i]["folder"])
-            iterations += 1
 
 
 if __name__ == '__main__':

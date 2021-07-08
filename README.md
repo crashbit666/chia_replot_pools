@@ -19,7 +19,7 @@ con los nuevos plots.
 Este programa se usa a través de la consola linux.
 
 ```bash
-crashbit@crashbit-GT62VR-6RE:~/plots_temp$ python3 ./chia_replot_pools.py -d /media/disco1/ /media/disco2 -mmr/home/crashbit/chia-plotter/ -pk poolpublickey -fk farmerpublickey -nppk smartcontracttopool 
+crashbit@crashbit-GT62VR-6RE:~/plots_temp$ python3 ./chia_replot_pools.py -d /media/disco1/ /media/disco2 -mmr/home/crashbit/chia-plotter/ -pk poolpublickey -fk farmerpublickey -nppk smartcontracttopool -nptd directorioplotstemporal
 ```
 Este comando comprueba si existe espacio en el directorio /media/disco1 para crear plots para las pools.
 De no ser así, elimina un plot viejo, vuelve a comprobar el espacio libre y si puede, crea un plot nuevo
