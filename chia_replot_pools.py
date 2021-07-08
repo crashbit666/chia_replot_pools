@@ -19,12 +19,24 @@ def arguments():
     parser.add_argument("-fk", "--farmer_public_key", type=str, action="store", help="Farmer public key")
     parser.add_argument("-npfd", "--new_plots_final_dir", type=str, action="store",
                         help="Directorio final de los plots")
-    parser.add_argument("-nppk", "--new_plots_pool_key", type=str, action="store",
+    parser.add_argument("-nft", "--new_plots_nft", type=str, action="store",
                         help="Dirección del contrato inteligente para la pool")
     parser.add_argument("-mmr", "--madmax_route", type=str, action="store", help="Ruta del ploteador madmax")
     parser.add_argument("-v", "--version", action="version", help="Muestra la versión")
     args = parser.parse_args()
     return args
+
+
+'''
+def folders_format_fix(directory, nptd, npfd, mmr):
+    fix_directory = []
+    for dirs in directory:
+        fix_directory[dirs] = os.path.join(directory[dirs], "")
+    fix_nptd = os.path.join(nptd, "")
+    fix_npfd = os.path.join(npfd, "")
+    fix_mmr = os.path.join(mmr, "")
+    return fix_directory, fix_nptd, fix_npfd, fix_mmr
+'''
 
 
 def check_directories_space(directories):
@@ -99,11 +111,12 @@ def check_new_plots_folder(folder):
     content = os.listdir(folder)
     if "new_plots" not in content:
         print("Create {}/new_plots folder".format(folder))
-        os.makedirs(folder + "/new_plots")
+        os.makedirs(folder + "new_plots")
 
 
 def main():
     args = arguments()
+    # args = folders_format_fix(args.directory, args.new_plots_temp_dir, args.new_plots_final_dir, args.madmax_route)
     spaces = check_directories_space(args.directory)
 
     for i in range(len(spaces)):
