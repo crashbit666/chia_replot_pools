@@ -107,11 +107,11 @@ def main():
     spaces = check_directories_space(args.directory)
 
     for i in range(len(spaces)):
-        old_plots_exist = True
-
         check_new_plots_folder(spaces[i]["folder"])
 
         while old_plots_exist:
+            old_plots_exist = True
+
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
             if spaces[i]["free_space"] > 102:
                 create_new_plots(args, spaces[i]["folder"])
