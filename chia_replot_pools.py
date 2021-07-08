@@ -108,15 +108,16 @@ def main():
 
     for i in range(len(spaces)):
         check_new_plots_folder(spaces[i]["folder"])
+        old_plots_exist = True
+        first_loop = 2
 
-        while old_plots_exist:
-            old_plots_exist = True
-
+        while old_plots_exist or first_loop > 0:
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
             if spaces[i]["free_space"] > 102:
                 create_new_plots(args, spaces[i]["folder"])
             else:
                 remove_old_plots(spaces[i]["folder"])
+            first_loop += -1
 
 
 if __name__ == '__main__':
