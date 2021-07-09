@@ -21,6 +21,28 @@ en una carpeta llamada /new_plots dentro del directorio especificado. (Recordad 
 
 **-v :** muestra la versión del programa
 
+**Todas las opciones**:
+```angular2html
+Elimina uno a una plots viejos y pone los nuevos
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DIRECTORY [DIRECTORY ...], --directory DIRECTORY [DIRECTORY ...]
+                        Directorios donde borrar y añadir nuevos plots
+  -nptd NEW_PLOTS_TEMP_DIR, --new_plots_temp_dir NEW_PLOTS_TEMP_DIR
+                        Directorio donde se crean los plots temporales
+  -fk FARMER_PUBLIC_KEY, --farmer_public_key FARMER_PUBLIC_KEY
+                        Farmer public key
+  -nft NEW_PLOTS_NFT, --new_plots_nft NEW_PLOTS_NFT
+                        Dirección del contrato inteligente para la pool
+  -mmr MADMAX_ROUTE, --madmax_route MADMAX_ROUTE
+                        Ruta del ploteador madmax
+  -r THREADS, --threads THREADS
+                        Número de threads (por defecto = 4)
+  -v, --version         Muestra la versión
+
+```
+
 ## Uso:
 Este programa se usa a través de la consola linux.
 
@@ -54,9 +76,9 @@ Esto si quieres plotear y usar la pool de [Chia.tk](https://chiatk.com/), o bié
 [crashbit@virtual-arch ~]$ chia plotnft create -s local
 ```
 Si quieres que tu contrato inteligente apunte a ti mismo, es decir, para plotear SOLO.
-Recuerda que si usas esta última opción, luego podrás sin problema apuntar tu NFT a un pool y los plots apuntarán
+Recuerda que si usas esta última opción, luego podrás apuntar tu NFT a un pool y los plots apuntarán
 al pool sin problema. Es decir, todos los nuevos plots creados con el NFT, aunque apunten a tu propia máquina, podrán 
-más tarde apuntar a un pool sin ningún problema.
+más tarde apuntar a un pool cambiando solo hacia dónde apunta el contrato inteligente.
 
 ## Estado del programa y notas importantes
 
