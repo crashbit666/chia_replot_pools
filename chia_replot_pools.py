@@ -97,7 +97,7 @@ def remove_old_plots(folder):
     folder_walk = os.walk(folder)
     try:
         last_plot = folder + next(folder_walk)[2][0]
-        print(Colors.fgRed, "Remove old plot {}".format(last_plot))
+        print(Colors.fgRed, "Remove old plot {}".format(last_plot), Colors.reset)
         os.remove(last_plot)
     except IndexError:
         pass
@@ -106,7 +106,7 @@ def remove_old_plots(folder):
 def create_new_plots(args, folder):
     # Pendiente . . . Aquí se crearán los nuevos plots
 
-    print(Colors.fgGreen, "Create new plot")
+    print(Colors.fgGreen, "Create new plot", Colors.reset)
     farmer_public_key = args.farmer_public_key
     new_plots_temp_directory = args.new_plots_temp_dir
     new_plots_final_directory = folder + "new_plots/"
@@ -133,7 +133,7 @@ def check_if_old_plots_exist(folder):
     # Ahí miramos que hay en el directorio, si hay solo la carpeta new_plots, significa que no queda nada que borrar
     # Si hay la carpeta new_plots y solo este fichero o el fichero lost+found, significa lo mismo
     if len(plots) == 1 or (len(plots) == 2 and "lost+found" in plots):
-        print(Colors.fgYellow, "No existen mas plots viejos para eliminar")
+        print(Colors.fgYellow, "No existen mas plots viejos para eliminar", Colors.reset)
         return False
     elif plots != "":
         return True
@@ -148,7 +148,7 @@ def check_new_plots_folder(folder):
 
     content = os.listdir(folder)
     if "new_plots" not in content:
-        print(Colors.fgGreen, "Create new_plots folder at: {}".format(folder))
+        print(Colors.fgGreen, "Create new_plots folder at: {}".format(folder), Colors.reset)
         os.makedirs(folder + "new_plots")
 
 
