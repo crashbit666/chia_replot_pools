@@ -115,22 +115,25 @@ def create_new_plots(args, folder):
     madmax_route = args.madmax_route + "build/chia_plot"
     threads = args.threads
     number_of_plots = args.number
+    if number_of_plots is None:
+        number_of_plots = 1
     if threads is None:
         threads = 4
     command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
                                          " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory +
-                                         " -r " + threads)
+                                         " -r " + threads + " -n " + number_of_plots)
     # Atención con el shell=True e intentar usar shlex_quote
-    while number_of_plots > 0:
-        subprocess.run(command_to_execute, shell=True)
-        number_of_plots += -1
+    subprocess.run(command_to_execute, shell=True)
 
 
 def check_if_old_plots_exist(folder):
     # Mira si en las carpetas pasadas existen plots. En caso contrario, hace salir del bucle while en main
 
     plots = os.listdir(folder)
-    if "new_plots" in plots and len(plots) == 1:
+
+    # Ahí miramos que hay en el directorio, si hay solo la carpeta new_plots, significa que no queda nada que borrar
+    # Si hay la carpeta new_plots y solo este fichero o el fichero lost+found, significa lo mismo
+    if "new_plots" in plots and (len(plots) == 1 or "lost+found" in plots):
         print(Colors.fgYellow, "No existen mas plots viejos para eliminar")
         return False
     elif plots != "":
