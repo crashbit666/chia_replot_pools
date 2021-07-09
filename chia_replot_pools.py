@@ -132,7 +132,7 @@ def check_if_old_plots_exist(folder):
 
     # Ahí miramos que hay en el directorio, si hay solo la carpeta new_plots, significa que no queda nada que borrar
     # Si hay la carpeta new_plots y solo este fichero o el fichero lost+found, significa lo mismo
-    if "new_plots" in plots and (len(plots) == 1 or "lost+found" in plots):
+    if "new_plots" in plots and (len(plots) == 1 or (len(plots == 2) and ("lost+found" in plots))):
         print(Colors.fgYellow, "No existen mas plots viejos para eliminar")
         return False
     elif plots != "":
