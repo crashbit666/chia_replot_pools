@@ -17,8 +17,8 @@ def arguments():
                         help="Directorio donde se crean los plots temporales")
     parser.add_argument("-pk", "--pool_public_key", type=str, action="store", help="Pool public key")
     parser.add_argument("-fk", "--farmer_public_key", type=str, action="store", help="Farmer public key")
-    parser.add_argument("-npfd", "--new_plots_final_dir", type=str, action="store",
-                        help="Directorio final de los plots")
+    # parser.add_argument("-npfd", "--new_plots_final_dir", type=str, action="store",
+    #                    help="Directorio final de los plots")
     parser.add_argument("-nft", "--new_plots_nft", type=str, action="store",
                         help="Dirección del contrato inteligente para la pool")
     parser.add_argument("-mmr", "--madmax_route", type=str, action="store", help="Ruta del ploteador madmax")
@@ -79,15 +79,13 @@ def create_new_plots(args, folder):
     # Pendiente . . . Aquí se crearán los nuevos plots
 
     print("Create new plots")
-    pool_public_key = args.pool_public_key
     farmer_public_key = args.farmer_public_key
     new_plots_temp_directory = args.new_plots_temp_dir
     new_plots_final_directory = folder + "new_plots/"
     new_plots_pool_contract = args.new_plots_nft
     madmax_route = args.madmax_route + "build/chia_plot"
-    command_to_execute = madmax_route + (" -p " + pool_public_key + " -f " + farmer_public_key + " -t "
-                                         + new_plots_temp_directory + " -c " + new_plots_pool_contract +
-                                         " -d " + new_plots_final_directory)
+    command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
+                                         " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory)
 
     shlex_quote(subprocess.run(command_to_execute, shell=True))
 
