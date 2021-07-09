@@ -40,7 +40,6 @@ def arguments():
     parser.version = "1.0"
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
                         help="Directorios donde borrar y añadir nuevos plots")
-    # parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
     parser.add_argument("-nptd", "--new_plots_temp_dir", type=str, action="store",
                         help="Directorio donde se crean los plots temporales")
     parser.add_argument("-fk", "--farmer_public_key", type=str, action="store", help="Farmer public key")
@@ -149,7 +148,7 @@ def check_new_plots_folder(folder):
 
     content = os.listdir(folder)
     if "new_plots" not in content:
-        print(Colors.fgGreen, "Create {} new_plots folder".format(folder))
+        print(Colors.fgGreen, "Create new_plots folder at: {}".format(folder))
         os.makedirs(folder + "new_plots")
 
 
