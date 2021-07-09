@@ -87,7 +87,7 @@ def create_new_plots(args, folder):
     command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
                                          " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory)
 
-    shlex_quote(subprocess.run(command_to_execute, shell=True))
+    subprocess.run(command_to_execute, shell=True)
 
 
 def check_if_old_plots_exist(folder):
