@@ -31,6 +31,8 @@ Este comando comprueba si existe espacio en el directorio /media/sas15 para crea
 De no ser así, elimina un plot viejo, vuelve a comprobar el espacio libre y si puede, crea un plot nuevo dentro
 de la carpeta /media/sas15/new_plots/
 
+**MUY IMPORTANTE**: Las rutas deben ponerse con el "/" al final, si no, es posible que falle el programa 
+
 ## Recuperar datos necesarios desde consola:
 Para conseguir los datos necesarios poner los siguientes comandos:
 ```bash
