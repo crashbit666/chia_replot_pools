@@ -50,6 +50,7 @@ def arguments():
     parser.add_argument("-nft", "--new_plots_nft", type=str, action="store",
                         help="Dirección del contrato inteligente para la pool")
     parser.add_argument("-mmr", "--madmax_route", type=str, action="store", help="Ruta del ploteador madmax")
+    parser.add_argument("-r", "--threads", type=int, action="store", help="Número de threads (defecto = 4)")
     parser.add_argument("-v", "--version", action="version", help="Muestra la versión")
     args = parser.parse_args()
     return args
@@ -112,8 +113,12 @@ def create_new_plots(args, folder):
     new_plots_final_directory = folder + "new_plots/"
     new_plots_pool_contract = args.new_plots_nft
     madmax_route = args.madmax_route + "build/chia_plot"
+    threads = args.threads
+    if threads is None:
+        threads = 4
     command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
-                                         " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory)
+                                         " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory +
+                                         " -r " + threads)
 
     subprocess.run(command_to_execute, shell=True)
 
