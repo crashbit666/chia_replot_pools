@@ -48,6 +48,7 @@ def arguments():
                         help="Dirección del contrato inteligente para la pool")
     parser.add_argument("-mmr", "--madmax_route", type=str, action="store", help="Ruta del ploteador madmax")
     parser.add_argument("-r", "--threads", type=int, action="store", help="Número de threads (por defecto = 4)")
+    parser.add_argument("-n", "--number", type=int, action="store", help="Numero de plots simultáneos")
     parser.add_argument("-v", "--version", action="version", help="Muestra la versión")
     args = parser.parse_args()
     return args
@@ -113,13 +114,16 @@ def create_new_plots(args, folder):
     new_plots_pool_contract = args.new_plots_nft
     madmax_route = args.madmax_route + "build/chia_plot"
     threads = args.threads
+    number_of_plots = args.number
     if threads is None:
         threads = 4
     command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
                                          " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory +
                                          " -r " + threads)
     # Atención con el shell=True e intentar usar shlex_quote
-    subprocess.run(command_to_execute, shell=True)
+    while number_of_plots > 0:
+        subprocess.run(command_to_execute, shell=True)
+        number_of_plots += -1
 
 
 def check_if_old_plots_exist(folder):
@@ -155,7 +159,10 @@ def main():
         check_new_plots_folder(spaces[i]["folder"])
         old_plots_exist = True
         first_loop = 2
-        necessary_space = 103
+        if args.number == 1:
+            necessary_space = 103
+        else:
+            necessary_space = 205
 
         while old_plots_exist or first_loop > 0:
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
