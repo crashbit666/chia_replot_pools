@@ -13,7 +13,7 @@ en una carpeta llamada /new_plots dentro del directorio especificado. (Recordad 
 
 **-mmr:** ruta donde se encuentra el plotter madmax
 
-**-fk:** Tu clave de farmeo
+**-fk:** Tu clave de farmer
 
 **-nft:** Tu contrato inteligente que apunta al pool o a local.
 
@@ -27,8 +27,34 @@ Este programa se usa a través de la consola linux.
 ```bash
 crashbit@crashbit-GT62VR-6RE:~/plots_temp$ python3 chia_replot_pools.py -d /media/sas15/ -mmr /home/crashbit/chia-plotter/ -fk change_with_your_farmer_key -nft change_with_your_pool_contract -nptd /media/zfs_ssd/
 ```
-Este comando comprueba si existe espacio en el directorio /media/disco1 para crear plots para las pools.
-De no ser así, elimina un plot viejo, vuelve a comprobar el espacio libre y si puede, crea un plot nuevo
+Este comando comprueba si existe espacio en el directorio /media/sas15 para crear plots para las pools.
+De no ser así, elimina un plot viejo, vuelve a comprobar el espacio libre y si puede, crea un plot nuevo dentro
+de la carpeta /media/sas15/new_plots/
+
+## Recuperar datos necesarios desde consola:
+Para conseguir los datos necesarios poner los siguientes comandos:
+```bash
+(venv) crashbit@sun:~/chia-blockchain$ chia keys show | grep Farmer
+Farmer public key (m/12381/8444/0/0): XXXXXXXXXX9956edc48397da28dc0e465cce8b71e9ab46654b5ae2c3fae5e5c93b78d66c6a3ec631d55c2cab12196dd5
+(venv) crashbit@sun:~/chia-blockchain$ chia plotnft show | grep contract
+P2 singleton address (pool contract address for plotting): XXXXXXXXXXXXXXrs5md8akd7cvcmjn5wmrm4rzsa6nq4kv2xlgx0nyqlar9tn 
+```
+El primer comando devuelve la clave de farmer y el segundo tu dirección de smart contract para las pools
+
+**RECORDAD** que antes de usar el programa hay que crear el smart contract (NFT).
+
+Para crearlo puedes hacer lo siguiente:
+```bash
+[crashbit@virtual-arch ~]$ chia plotnft create -s pool -u https://api.biopool.tk
+```
+Esto si quieres plotear y usar la pool de [Chia.tk](https://chiatk.com/), o bién:
+```bash
+[crashbit@virtual-arch ~]$ chia plotnft create -s local
+```
+Si quieres que tu contrato inteligente apunte a ti mismo, es decir, para plotear SOLO.
+Recuerda que si usas esta última opción, luego podrás sin problema apuntar tu NFT a un pool y los plots apuntarán
+al pool sin problema. Es decir, todos los nuevos plots creados con el NFT, aunque apunten a tu propia máquina, podrán 
+más tarde apuntar a un pool sin ningún problema.
 
 ## Estado del programa y notas importantes
 
