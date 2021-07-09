@@ -37,26 +37,25 @@ def arguments():
     # Esta función busca los argumentos pasados al programa y los devuelve
 
     parser = argparse.ArgumentParser(description="Elimina uno a una plots viejos y pone los nuevos")
-    parser.version = "0.9.99"
+    parser.version = "1.0"
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
                         help="Directorios donde borrar y añadir nuevos plots")
     # parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
     parser.add_argument("-nptd", "--new_plots_temp_dir", type=str, action="store",
                         help="Directorio donde se crean los plots temporales")
-    parser.add_argument("-pk", "--pool_public_key", type=str, action="store", help="Pool public key")
     parser.add_argument("-fk", "--farmer_public_key", type=str, action="store", help="Farmer public key")
-    # parser.add_argument("-npfd", "--new_plots_final_dir", type=str, action="store",
-    #                    help="Directorio final de los plots")
     parser.add_argument("-nft", "--new_plots_nft", type=str, action="store",
                         help="Dirección del contrato inteligente para la pool")
     parser.add_argument("-mmr", "--madmax_route", type=str, action="store", help="Ruta del ploteador madmax")
-    parser.add_argument("-r", "--threads", type=int, action="store", help="Número de threads (defecto = 4)")
+    parser.add_argument("-r", "--threads", type=int, action="store", help="Número de threads (por defecto = 4)")
     parser.add_argument("-v", "--version", action="version", help="Muestra la versión")
     args = parser.parse_args()
     return args
 
 
 '''
+Este apartado hay que configurarlo para que funcione y arregle las rutas en caso de poner el "/" al final
+
 def folders_format_fix(directory, nptd, npfd, mmr):
     fix_directory = []
     for dirs in directory:
@@ -119,7 +118,7 @@ def create_new_plots(args, folder):
     command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
                                          " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory +
                                          " -r " + threads)
-
+    # Atención con el shell=True e intentar usar shlex_quote
     subprocess.run(command_to_execute, shell=True)
 
 
