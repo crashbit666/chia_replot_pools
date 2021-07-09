@@ -21,6 +21,11 @@ en una carpeta llamada /new_plots dentro del directorio especificado. (Recordad 
 
 **-v :** muestra la versión del programa
 
+**-r :** Número de hilos que usará el ploteador madmax
+
+**-n :** Número de plots que hará madmax. Esto quiere decir que borrará de golpe tantos plots viejos como tamaño
+necesiten los nuevos plots
+
 **Todas las opciones**:
 ```angular2html
 Elimina uno a una plots viejos y pone los nuevos
@@ -39,8 +44,9 @@ optional arguments:
                         Ruta del ploteador madmax
   -r THREADS, --threads THREADS
                         Número de threads (por defecto = 4)
+  -n NUMBER, --number NUMBER
+                        Numero de plots simultáneos
   -v, --version         Muestra la versión
-
 ```
 
 ## Uso:
