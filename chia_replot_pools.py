@@ -109,7 +109,7 @@ def check_new_plots_folder(folder):
 
     content = os.listdir(folder)
     if "new_plots" not in content:
-        print("Create {}/new_plots folder".format(folder))
+        print("Create {} new_plots folder".format(folder))
         os.makedirs(folder + "new_plots")
 
 
