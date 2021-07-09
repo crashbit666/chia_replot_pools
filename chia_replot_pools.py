@@ -2,7 +2,35 @@ import argparse
 import shutil
 import os
 import subprocess
-from shlex import quote as shlex_quote
+# from shlex import quote as shlex_quote
+
+
+class Colors:
+    reset = "\033[0m"
+
+    # Red
+    fgRed = "\033[31m"
+    fgBrightRed = "\033[31;1m"
+    bgRed = "\033[41m"
+    bgBrightRed = "\033[41;1m"
+
+    # Green
+    fgGreen = "\033[32m"
+    fgBrightGreen = "\033[32;1m"
+    bgGreen = "\033[42m"
+    bgBrightGreen = "\033[42;1m"
+
+    # Yellow
+    fgYellow = "\033[33m"
+    fgBrightYellow = "\033[33;1m"
+    bgYellow = "\033[43m"
+    bgBrightYellow = "\033[43;1m"
+
+    # Blue
+    fgBlue = "\033[34m"
+    fgBrightBlue = "\033[34;1m"
+    bgBlue = "\033[44m"
+    bgBrightBlue = "\033[44;1m"
 
 
 def arguments():
@@ -69,7 +97,7 @@ def remove_old_plots(folder):
     folder_walk = os.walk(folder)
     try:
         last_plot = folder + next(folder_walk)[2][0]
-        print("Remove old plot {}".format(last_plot))
+        print(Colors.fgRed, "Remove old plot {}".format(last_plot))
         os.remove(last_plot)
     except IndexError:
         pass
@@ -78,7 +106,7 @@ def remove_old_plots(folder):
 def create_new_plots(args, folder):
     # Pendiente . . . Aquí se crearán los nuevos plots
 
-    print("Create new plots")
+    print(Colors.fgGreen, "Create new plot")
     farmer_public_key = args.farmer_public_key
     new_plots_temp_directory = args.new_plots_temp_dir
     new_plots_final_directory = folder + "new_plots/"
@@ -95,6 +123,7 @@ def check_if_old_plots_exist(folder):
 
     plots = os.listdir(folder)
     if "new_plots" in plots and len(plots) == 1:
+        print(Colors.fgYellow, "No existen mas plots viejos para eliminar")
         return False
     elif plots != "":
         return True
@@ -109,7 +138,7 @@ def check_new_plots_folder(folder):
 
     content = os.listdir(folder)
     if "new_plots" not in content:
-        print("Create {} new_plots folder".format(folder))
+        print(Colors.fgGreen, "Create {} new_plots folder".format(folder))
         os.makedirs(folder + "new_plots")
 
 
@@ -122,10 +151,11 @@ def main():
         check_new_plots_folder(spaces[i]["folder"])
         old_plots_exist = True
         first_loop = 2
+        necessary_space = 103
 
         while old_plots_exist or first_loop > 0:
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
-            if spaces[i]["free_space"] > 102:
+            if spaces[i]["free_space"] > necessary_space:
                 create_new_plots(args, spaces[i]["folder"])
                 spaces = check_directories_space(args.directory)
             else:
