@@ -8,7 +8,8 @@ si existe suficiente espacio en el disco y de ser así, crea un nuevo plot adapt
 Si no existe suficiente espacio, elimina un plot y luego crea el nuevo para las pools
 
 ## Opciones:
-**-d :** directorio donde repoblar los plots, eliminado viejos si no hay espacio y creando nuevos,
+**-d :** directorio donde repoblar los plots, eliminado viejos si no hay espacio y creando nuevos. Los nuevos se crean 
+en una carpeta llamada /new_plots dentro del directorio especificado. (Recordad añadir el directorio /new_plots al farmeo)
 
 **-mmr:** ruta donde se encuentra el plotter madmax
 
