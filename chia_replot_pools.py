@@ -120,7 +120,7 @@ def create_new_plots(args, folder):
         threads = 4
     command_to_execute = madmax_route + (" -f " + farmer_public_key + " -t " + new_plots_temp_directory +
                                          " -c " + new_plots_pool_contract + " -d " + new_plots_final_directory +
-                                         " -r " + threads + " -n " + number_of_plots)
+                                         " -r " + str(threads) + " -n " + str(number_of_plots))
     # Atención con el shell=True e intentar usar shlex_quote
     subprocess.run(command_to_execute, shell=True)
 
