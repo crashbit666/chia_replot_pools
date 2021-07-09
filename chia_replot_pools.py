@@ -9,7 +9,7 @@ def arguments():
     # Esta función busca los argumentos pasados al programa y los devuelve
 
     parser = argparse.ArgumentParser(description="Elimina uno a una plots viejos y pone los nuevos")
-    parser.version = "0.9.9"
+    parser.version = "0.9.99"
     parser.add_argument("-d", "--directory", type=str, action="store", nargs="+",
                         help="Directorios donde borrar y añadir nuevos plots")
     # parser.add_argument("-n", "--number", type=int, help="Número de plots a crear/eliminar, 1 si no se especifica")
@@ -83,10 +83,11 @@ def create_new_plots(args, folder):
     farmer_public_key = args.farmer_public_key
     new_plots_temp_directory = args.new_plots_temp_dir
     new_plots_final_directory = folder + "new_plots/"
-    # new_plots_pool_contract = args.new_plots_pool_key
+    new_plots_pool_contract = args.new_plots_nft
     madmax_route = args.madmax_route + "build/chia_plot"
     command_to_execute = madmax_route + (" -p " + pool_public_key + " -f " + farmer_public_key + " -t "
-                                         + new_plots_temp_directory + " -d " + new_plots_final_directory)
+                                         + new_plots_temp_directory + " -c " + new_plots_pool_contract +
+                                         " -d " + new_plots_final_directory)
 
     shlex_quote(subprocess.run(command_to_execute, shell=True))
 
