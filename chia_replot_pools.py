@@ -165,7 +165,7 @@ def main():
         if args.number == 1:
             necessary_space = 103
         else:
-            necessary_space = 205
+            necessary_space = 103 * args.number
 
         while old_plots_exist or first_loop > 0:
             old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
