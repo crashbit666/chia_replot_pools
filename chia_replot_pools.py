@@ -161,7 +161,6 @@ def main():
 
     for i in range(len(spaces)):
         check_new_plots_folder(spaces[i]["folder"])
-        old_plots_exist = True
         first_loop = 2
         if args.number == 1:
             necessary_space = 103
@@ -169,7 +168,6 @@ def main():
             necessary_space = 103 * args.number
 
         while spaces[i]["free_space"] > necessary_space or first_loop > 0:
-            # old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
             if spaces[i]["free_space"] > necessary_space:
                 create_new_plots(args, spaces[i]["folder"])
                 spaces = check_directories_space(args.directory)
