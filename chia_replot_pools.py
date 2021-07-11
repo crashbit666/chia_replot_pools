@@ -125,7 +125,6 @@ def create_new_plots(args, folder):
     subprocess.run(command_to_execute, shell=True)
 
 
-'''
 def check_if_old_plots_exist(folder):
     # Mira si en las carpetas pasadas existen plots. En caso contrario, hace salir del bucle while en main
 
@@ -141,7 +140,6 @@ def check_if_old_plots_exist(folder):
     else:
         check_new_plots_folder(folder)
         return True
-'''
 
 
 def check_new_plots_folder(folder):
@@ -161,19 +159,22 @@ def main():
 
     for i in range(len(spaces)):
         check_new_plots_folder(spaces[i]["folder"])
-        first_loop = 2
+        old_plots_exist = True
+        first_loop = args.number
         if args.number == 1:
             necessary_space = 103
         else:
             necessary_space = 103 * args.number
 
-        while spaces[i]["free_space"] > necessary_space or first_loop > 0:
+        while old_plots_exist or first_loop > 0 or spaces[i]["free_space"] > 103:
             if spaces[i]["free_space"] > necessary_space:
                 create_new_plots(args, spaces[i]["folder"])
                 spaces = check_directories_space(args.directory)
             else:
-                remove_old_plots(spaces[i]["folder"])
-                spaces = check_directories_space(args.directory)
+                old_plots_exist = check_if_old_plots_exist(spaces[i]["folder"])
+                if old_plots_exist:
+                    remove_old_plots(spaces[i]["folder"])
+                    spaces = check_directories_space(args.directory)
             first_loop += -1
 
 
