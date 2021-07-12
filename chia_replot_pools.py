@@ -2,7 +2,6 @@ import argparse
 import shutil
 import os
 import subprocess
-# from shlex import quote as shlex_quote
 
 
 class Colors:
@@ -166,7 +165,7 @@ def main():
         else:
             necessary_space = 103 * args.number
 
-        while old_plots_exist or first_loop > 0 or spaces[i]["free_space"] > 103:
+        while old_plots_exist:
             if spaces[i]["free_space"] > necessary_space:
                 create_new_plots(args, spaces[i]["folder"])
                 spaces = check_directories_space(args.directory)
