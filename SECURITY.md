@@ -6,6 +6,7 @@ chia_replot_pools is a testing versioni
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 1.0     |                    |
 | 0.9.9   | :white_check_mark: |
 
 
