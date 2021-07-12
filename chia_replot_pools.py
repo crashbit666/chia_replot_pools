@@ -53,6 +53,8 @@ def arguments():
 
 
 def folders_format_fix(directory, nptd,  mmr):
+    # Este apartado hay que configurarlo para que funcione y arregle las rutas en caso de no poner el "/" al final
+
     for x in range(len(directory)):
         directory[x] = os.path.join(directory[x], "")
     nptd = os.path.join(nptd, "")
@@ -147,8 +149,6 @@ def check_new_plots_folder(folder):
 
 def main():
     args = arguments()
-    if args.number is None:
-        args.number = 1
     args.directory, args.new_plots_temp_dir, args.madmax_route = \
         folders_format_fix(args.directory, args.new_plots_temp_dir, args.madmax_route)
     spaces = check_directories_space(args.directory)
