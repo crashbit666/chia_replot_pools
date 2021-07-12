@@ -52,18 +52,14 @@ def arguments():
     return args
 
 
-'''
-Este apartado hay que configurarlo para que funcione y arregle las rutas en caso de poner el "/" al final
+def folders_format_fix(directory, nptd,  mmr):
+    # Este apartado hay que configurarlo para que funcione y arregle las rutas en caso de no poner el "/" al final
 
-def folders_format_fix(directory, nptd, npfd, mmr):
-    fix_directory = []
-    for dirs in directory:
-        fix_directory[dirs] = os.path.join(directory[dirs], "")
-    fix_nptd = os.path.join(nptd, "")
-    fix_npfd = os.path.join(npfd, "")
-    fix_mmr = os.path.join(mmr, "")
-    return fix_directory, fix_nptd, fix_npfd, fix_mmr
-'''
+    for x in range(len(directory)):
+        directory[x] = os.path.join(directory[x], "")
+    nptd = os.path.join(nptd, "")
+    mmr = os.path.join(mmr, "")
+    return directory, nptd, mmr
 
 
 def check_directories_space(directories):
@@ -153,7 +149,8 @@ def check_new_plots_folder(folder):
 
 def main():
     args = arguments()
-    # args = folders_format_fix(args.directory, args.new_plots_temp_dir, args.new_plots_final_dir, args.madmax_route)
+    args.directory, args.new_plots_temp_dir, args.madmax_route = \
+        folders_format_fix(args.directory, args.new_plots_temp_dir, args.madmax_route)
     spaces = check_directories_space(args.directory)
 
     for i in range(len(spaces)):
