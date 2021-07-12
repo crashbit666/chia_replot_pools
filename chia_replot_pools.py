@@ -53,8 +53,6 @@ def arguments():
 
 
 def folders_format_fix(directory, nptd,  mmr):
-    # Este apartado hay que configurarlo para que funcione y arregle las rutas en caso de no poner el "/" al final
-
     for x in range(len(directory)):
         directory[x] = os.path.join(directory[x], "")
     nptd = os.path.join(nptd, "")
